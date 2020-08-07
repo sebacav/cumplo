@@ -40,7 +40,6 @@ class CreditsController < ApplicationController
         # Variable de entorno
         begin
             apikey = ENV["API_KEY"]
-            puts apikey
             # URL Base del servicio
             base = 'https://api.sbif.cl/api-sbifv3/recursos_api/tmc/'
             # Se concatenan la url, junto a los parámetros

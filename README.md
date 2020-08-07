@@ -55,5 +55,7 @@ config/routes.rb
 Dockerfile
 
 ```
+## End Point
 
+El servicio tiene una estructura: `http://mydominio.cl/credits/:uf/:dias/:fecha`. En donde :uf, :dias y :fecha, debe ir el valor correspondiente a la solicitud de tasa de credito tmc, por ejemplo : `https://cumplo-smdxjsf3dq-uc.a.run.app/credits/30/60/2020-06-15`
 
