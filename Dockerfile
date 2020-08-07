@@ -48,7 +48,7 @@ ENV TEST_PASSWORD=asvJFLktUTv4cAh9
 ENV PROD_USERNAME=xxxxx
 ENV PROD_PASSWORD=xxxxx
 # Variable en caso de que fueramos a hacer un test que requiera el API KEY
-# ENV API_KEY=xxxxx
+# ENV API_KEY=xxxxxx
 # Corremos los test, para asegurarnos de que todo funciona bien antes de pasar a produccion
 RUN ["rails", "test"]
 # Editamos la variable de entorno de rails, para que entienda que debe correr en produccion

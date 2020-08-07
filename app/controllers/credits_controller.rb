@@ -5,14 +5,14 @@ class CreditsController < ApplicationController
   # Método que devuelve el cálculo del TMC
   def tmc
     # Obtenemos el tipo de operación dado los parámetros de UF y Días
-    tipos_operaciones
+    obtener_tipo_operacion
     # Validamos el tramo de mes que necesitamos
-    validar_fecha
+    validar_mes
     # Consultamos contra la SBIF
     consultar_tmc
     # Buscamos en la trama devuelta
     buscar_tipo_sbif
-    
+
   end
 
   private
@@ -40,11 +40,12 @@ class CreditsController < ApplicationController
         # Variable de entorno
         begin
             apikey = ENV["API_KEY"]
+            puts apikey
             # URL Base del servicio
             base = 'https://api.sbif.cl/api-sbifv3/recursos_api/tmc/'
             # Se concatenan la url, junto a los parámetros
             # de fecha, que solicita el usuario
-            request = base+@fecha.year.to_s+'/'+@fecha.month.to_s+'?apikey='+apikey+'&formato=json'
+            request = base+@fecha.year.to_s+'/'+@fecha.month.to_s+'/0?apikey='+apikey+'&formato=json'
             # Se hace un request a la API
             @response = HTTParty.get(request)
         rescue => exception
@@ -66,12 +67,10 @@ class CreditsController < ApplicationController
                 # devolveremos la TMC
                 if i["Tipo"] == @tipo.to_s
                     @valor = i["Valor"]
-                    return render json: {tmc: @valor}, status: :ok
+                     render json: {tmc: @valor}, status: :ok
+                    break
                 end
             end
-            # Si por algún motivo, no encontramos el tipo
-            # entonces devolvemos un estado de no encontrado
-            render status: :not_found
         rescue => exception
             # Si algo falla o bien el SBIF, no responde con los datos
             # devolveremos un expectation_failed
@@ -81,7 +80,7 @@ class CreditsController < ApplicationController
 
     # Metodo que nos devuelve el tipo de operacion, basado en los parametros
     # que el usuario entrega mediante la url, tanto de UF como Días
-    def tipos_operaciones
+    def obtener_tipo_operacion
         @tipo = nil
         # "Tipo": "22" operaciones reajustables pesos > año, UF > 2k
         if (@dias > 365 and @uf > 2000 )
@@ -115,7 +114,7 @@ class CreditsController < ApplicationController
     # Debido a que la SBIF cambia sus tazas cada 30 dias, a los dias 15
     # de cada mes, requerimos hacer un checkeo de la fecha que solicita el usuario,
     # para saber si es requerida la taza de este mes o del mes anterior
-    def validar_fecha
+    def validar_mes
         if @fecha.day < 15
             @fecha = @fecha - 1.month
         end
