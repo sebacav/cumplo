@@ -45,7 +45,7 @@ class CreditsController < ApplicationController
             base = 'https://api.sbif.cl/api-sbifv3/recursos_api/tmc/'
             # Se concatenan la url, junto a los parámetros
             # de fecha, que solicita el usuario
-            request = base+@fecha.year.to_s+'/'+@fecha.month.to_s+'/0?apikey='+apikey+'&formato=json'
+            request = base+@fecha.year.to_s+'/'+@fecha.month.to_s+'?apikey='+apikey+'&formato=json'
             # Se hace un request a la API
             @response = HTTParty.get(request)
         rescue => exception

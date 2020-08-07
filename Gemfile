@@ -16,13 +16,13 @@ gem 'httparty'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
-gem 'bcrypt'
-# CORS
-gem 'rack-cors'
-# Json Web Token
-gem 'jwt'
-#Serializers
-gem "active_model_serializers"
+# gem 'bcrypt'
+# # CORS
+# gem 'rack-cors'
+# # Json Web Token
+# gem 'jwt'
+# #Serializers
+# gem "active_model_serializers"
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
